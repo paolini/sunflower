@@ -1,3 +1,3 @@
 Draw sunflower-like spirals with angle phi
 
-See in action: paolini.github.io/sunflower/
+See in action: https://paolini.github.io/sunflower/
