@@ -4,6 +4,8 @@ var input_theta = document.getElementById("input_theta");
 var slider_theta = document.getElementById("slide_theta");
 var input_n = document.getElementById("input_n");
 var slider_n = document.getElementById("slide_n");
+var button_animate = document.getElementById("button_animate");
+var animate = false;
 
 function reset() {
     var angle = 0.3819660112501051; // 2-phi
@@ -15,6 +17,12 @@ function reset() {
 function slider_change() {
     input_theta.value = slider_theta.value;
     input_n.value = slider_n.value;
+    draw();
+}
+
+function toggle_animation() {
+    animate = !animate;
+    button_animate.value = animate ? "stop" : "animate";
     draw();
 }
 
@@ -39,6 +47,13 @@ function draw() {
         ctx.beginPath();
         ctx.arc(x, y, 1+(n-i)*5/n, 0, 2 * Math.PI);
         ctx.fill();
+    }
+    if (animate) {
+        theta += 0.005 / n;
+        if (theta>0.5) theta -= 0.5;
+        input_theta.value = theta;
+        slider_theta.value = theta;
+        window.requestAnimationFrame(draw);
     }
 }
 
