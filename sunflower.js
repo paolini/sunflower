@@ -1,18 +1,27 @@
 var canvas = document.getElementById("mycanvas");
 var ctx = canvas.getContext("2d");
 var input_theta = document.getElementById("input_theta");
+var slider_theta = document.getElementById("slide_theta");
+var input_n = document.getElementById("input_n");
+var slider_n = document.getElementById("slide_n");
 
 function reset() {
-    input_theta.value=0.3819660112501051; // 2 - phi
-    input_theta.onchange();
+    var angle = 0.3819660112501051; // 2-phi
+    slider_theta.value = angle;
+    input_theta.value = angle;
+    draw();
+}
+
+function slider_change() {
+    input_theta.value = slider_theta.value;
+    input_n.value = slider_n.value;
+    draw();
 }
 
 function draw() {   
     var R = canvas.height/2-5;
     var theta = parseFloat(input_theta.value);
-    var n = Math.round(Math.pow(1000, parseInt(document.getElementById("input_n").value)/1000));
-    document.getElementById("span_theta").innerText = theta.toFixed(4);
-    document.getElementById("span_n").innerText = n;
+    var n = Math.round(Math.pow(1000, parseInt(input_n.value)/1000));
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     var center_x = canvas.width/2;
     var center_y = canvas.height/2;
