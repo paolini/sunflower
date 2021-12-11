@@ -5,10 +5,23 @@ var slider_theta = document.getElementById("slide_theta");
 var input_n = document.getElementById("input_n");
 var slider_n = document.getElementById("slide_n");
 var button_animate = document.getElementById("button_animate");
+var span_fraction = document.getElementById("span_fraction");
 var animate = false;
 var initial_theta = 0.3819660112501051; // 2-phi
 var theta;
 var n;
+
+function update_fraction() {
+    var fraction = [];
+    var x = theta;
+    for (var i=0;i<10;++i) {
+        x = 1/x;
+        var n = Math.floor(x);
+        fraction.push(n);
+        x -= n;
+    }
+    span_fraction.innerText="1 / (" + fraction.join(" + 1 / (") + "...))))))))))";
+}
 
 function reset() {
     theta = initial_theta;
@@ -23,6 +36,7 @@ function input_change() {
     n = parseInt(input_n.value);
     slider_theta.value = input_theta.value;
     slider_n.value = Math.log(input_n.value)/Math.log(1000);
+    update_fraction();
     draw();
 }
 
@@ -31,6 +45,7 @@ function slider_change() {
     n = Math.round(Math.pow(1000, parseFloat(slider_n.value)));
     input_n.value = n;
     input_theta.value = theta;
+    update_fraction();
     draw();
 }
 
@@ -64,6 +79,7 @@ function draw() {
 }
 
 function update() {
+    update_fraction();
     draw();
     if (animate) {
         theta += 0.005 / n;
